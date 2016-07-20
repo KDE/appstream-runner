@@ -4,6 +4,7 @@ project(appstreamrunner)
 find_package(ECM 1.7.0 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
+find_package(KF5 REQUIRED COMPONENTS Qt5)
 find_package(KF5 REQUIRED COMPONENTS I18n Runner)
 find_package(AppstreamQt 0.9.2)
 
