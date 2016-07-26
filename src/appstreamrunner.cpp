@@ -71,8 +71,8 @@ void InstallerRunner::match(Plasma::RunnerContext &context)
         match.setType(Plasma::QueryMatch::PossibleMatch);
         match.setId(component.id());
         match.setIcon(QIcon(component.iconUrl({64,64}).toLocalFile()));
-        match.setText(i18n("Open %1...", component.name()));
-        match.setSubtext(i18n("Software Center"));
+        match.setText(i18n("Get %1...", component.name()));
+        match.setSubtext(component.summary());
         match.setData(QUrl("appstream://" + component.id()));
         context.addMatch(match);
     }
