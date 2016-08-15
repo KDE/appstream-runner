@@ -50,12 +50,7 @@ void InstallerRunner::match(Plasma::RunnerContext &context)
     if(context.query().size() <= 2)
         return;
 
-    if(!m_db.open()) {
-        qWarning() << "no appstream for you";
-        return;
-    }
-
-    const auto components = m_db.findComponentsByString(context.query());
+    auto components = findComponentsByString(context.query());
 
     foreach(const Appstream::Component &component, components) {
         if (component.kind() != Appstream::Component::KindDesktop)
@@ -83,6 +78,17 @@ void InstallerRunner::run(const Plasma::RunnerContext &/*context*/, const Plasma
     const QUrl appstreamUrl = match.data().toUrl();
     if (!QDesktopServices::openUrl(appstreamUrl))
         qWarning() << "couldn't open" << appstreamUrl;
+}
+
+QList<Appstream::Component> InstallerRunner::findComponentsByString(const QString &query)
+{
+    QMutexLocker locker(&m_appstreamMutex);
+    if(!m_db.open()) {
+        qWarning() << "no appstream for you";
+        return QList<Appstream::Component>();
+    }
+
+    return m_db.findComponentsByString(query);
 }
 
 #include "appstreamrunner.moc"

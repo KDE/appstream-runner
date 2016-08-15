@@ -23,6 +23,7 @@
 
 #include <KRunner/AbstractRunner>
 #include <AppstreamQt/database.h>
+#include <QMutex>
 
 class InstallerRunner : public Plasma::AbstractRunner
 {
@@ -36,7 +37,10 @@ public:
     void run(const Plasma::RunnerContext &context, const Plasma::QueryMatch &action) override;
 
 private:
+    QList<Appstream::Component> findComponentsByString(const QString &query);
+
     Appstream::Database m_db;
+    QMutex m_appstreamMutex;
 };
 
 #endif
