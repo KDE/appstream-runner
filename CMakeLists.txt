@@ -6,7 +6,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
 find_package(Qt5 REQUIRED COMPONENTS Gui)
 find_package(KF5 REQUIRED COMPONENTS I18n Runner)
-find_package(AppstreamQt REQUIRED 0.9.2)
+find_package(AppStreamQt REQUIRED 0.10.4)
 
 include(KDEInstallDirs)
 include(KDECompilerSettings NO_POLICY_SCOPE)

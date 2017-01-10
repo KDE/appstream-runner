@@ -20,6 +20,8 @@
 
 #include "appstreamrunner.h"
 
+#include <AppStreamQt/icon.h>
+
 #include <QDir>
 #include <QIcon>
 #include <QDesktopServices>
@@ -45,6 +47,34 @@ InstallerRunner::~InstallerRunner()
 {
 }
 
+static QIcon componentIcon(const AppStream::Component &comp)
+{
+    QIcon ret;
+    const auto icons = comp.icons();
+    if (icons.isEmpty()) {
+        ret = QIcon::fromTheme(QStringLiteral("package-x-generic"));
+    } else foreach(const AppStream::Icon &icon, icons) {
+        QStringList stock;
+        switch(icon.kind()) {
+            case AppStream::Icon::KindLocal:
+                ret.addFile(icon.url().toLocalFile(), icon.size());
+                break;
+            case AppStream::Icon::KindCached:
+                ret.addFile(icon.url().toLocalFile(), icon.size());
+                break;
+            case AppStream::Icon::KindStock:
+                stock += icon.name();
+                break;
+            default:
+                break;
+        }
+        if (ret.isNull() && !stock.isEmpty()) {
+            ret = QIcon::fromTheme(stock.first());
+        }
+    }
+    return ret;
+}
+
 void InstallerRunner::match(Plasma::RunnerContext &context)
 {
     if(context.query().size() <= 2)
@@ -52,8 +82,8 @@ void InstallerRunner::match(Plasma::RunnerContext &context)
 
     auto components = findComponentsByString(context.query());
 
-    foreach(const Appstream::Component &component, components) {
-        if (component.kind() != Appstream::Component::KindDesktop)
+    foreach(const AppStream::Component &component, components) {
+        if (component.kind() != AppStream::Component::KindDesktopApp)
             continue;
 
         const auto idWithoutDesktop = component.id().remove(".desktop");
@@ -65,7 +95,7 @@ void InstallerRunner::match(Plasma::RunnerContext &context)
         Plasma::QueryMatch match(this);
         match.setType(Plasma::QueryMatch::PossibleMatch);
         match.setId(component.id());
-        match.setIcon(QIcon(component.iconUrl({64,64}).toLocalFile()));
+        match.setIcon(componentIcon(component));
         match.setText(i18n("Get %1...", component.name()));
         match.setSubtext(component.summary());
         match.setData(QUrl("appstream://" + component.id()));
@@ -80,15 +110,16 @@ void InstallerRunner::run(const Plasma::RunnerContext &/*context*/, const Plasma
         qWarning() << "couldn't open" << appstreamUrl;
 }
 
-QList<Appstream::Component> InstallerRunner::findComponentsByString(const QString &query)
+QList<AppStream::Component> InstallerRunner::findComponentsByString(const QString &query)
 {
     QMutexLocker locker(&m_appstreamMutex);
-    if(!m_db.open()) {
+    static bool opened = m_db.load();
+    if(!opened) {
         qWarning() << "no appstream for you";
-        return QList<Appstream::Component>();
+        return QList<AppStream::Component>();
     }
 
-    return m_db.findComponentsByString(query);
+    return m_db.search(query);
 }
 
 #include "appstreamrunner.moc"
