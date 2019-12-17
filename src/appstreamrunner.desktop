@@ -1,11 +1,15 @@
 [Desktop Entry]
 Name=Software Center
 Name[ca]=Centre de programari
+Name[nl]=Softwarecentrum
+Name[pt]=Centro de Aplicações
 Name[uk]=Центр програм
 Name[x-test]=xxSoftware Centerxx
 Name[zh_TW]=軟體中心
 Comment=Lets you find software
 Comment[ca]=Permet cercar programari
+Comment[nl]=Laat u software vinden
+Comment[pt]=Permite-lhe procurar por aplicações
 Comment[uk]=Допомагає вам шукати програми
 Comment[x-test]=xxLets you find softwarexx
 Comment[zh_TW]=讓您尋找軟體
