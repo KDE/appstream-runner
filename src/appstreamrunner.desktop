@@ -2,6 +2,7 @@
 Name=Software Center
 Name[ca]=Centre de programari
 Name[es]=Centro de software
+Name[lt]=Programinės įrangos centras
 Name[nl]=Softwarecentrum
 Name[pt]=Centro de Aplicações
 Name[sk]=Softvérové centum
@@ -11,6 +12,7 @@ Name[zh_TW]=軟體中心
 Comment=Lets you find software
 Comment[ca]=Permet cercar programari
 Comment[es]=Le ayuda a encontrar su software
+Comment[lt]=Leidžia jums rasti programinę įrangą
 Comment[nl]=Laat u software vinden
 Comment[pt]=Permite-lhe procurar por aplicações
 Comment[sk]=Umožní vám nájsť softvér
