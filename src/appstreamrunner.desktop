@@ -2,6 +2,7 @@
 Name=Software Center
 Name[ca]=Centre de programari
 Name[ca@valencia]=Centre de programari
+Name[cs]=Centrum softwaru
 Name[es]=Centro de software
 Name[et]=Tarkvarakeskus
 Name[it]=Software Center
@@ -18,6 +19,7 @@ Name[zh_TW]=軟體中心
 Comment=Lets you find software
 Comment[ca]=Permet cercar programari
 Comment[ca@valencia]=Permet cercar programari
+Comment[cs]=Umožní vám hledat software
 Comment[es]=Le ayuda a encontrar su software
 Comment[et]=Võimaldab tarkvara otsida
 Comment[it]=Ti consente di trovare i programmi
